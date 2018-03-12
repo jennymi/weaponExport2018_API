@@ -6,7 +6,7 @@ const mongoClient = require('mongodb').MongoClient;
 const bodyParser = require('body-parser');
 //create app and set port
 const app = express();
-const port = 1137;
+const port = 80;
 
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));

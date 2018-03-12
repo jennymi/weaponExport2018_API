@@ -2,8 +2,9 @@
   "name": "mapapi",
   "version": "1.0.0",
   "description": "api for weapon export map",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Team-Chaos",
