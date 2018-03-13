@@ -37,6 +37,7 @@ module.exports = function(app, cors, database) {
             country: req.body.country,
             code: req.body.code,
             FHstatus: req.body.FHstatus,
+            gpi: req.body.gpi,
             info: req.body.info,
             links: req.body.links,           
         };
