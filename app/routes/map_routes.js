@@ -26,7 +26,7 @@ module.exports = function(app, cors, database) {
         const country = {
             country: req.body.country,
             code: req.body.code,
-            weapons: req.body.weapons,
+            FHstatus: req.body.FHstatus,
             info: req.body.info,
             links: req.body.links,           
         };
