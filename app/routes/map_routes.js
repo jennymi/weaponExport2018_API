@@ -55,6 +55,30 @@ module.exports = function(app, cors, database) {
         console.log('server ran post');
     });
 
+    app.put('/edit/:db/:id', (req, res) => {
+        const cloud = database.db('mapdata');
+        oid = ObjectId(req.params.id);
+
+        console.log('tried to update ' + req.params.id); 
+        
+        cloud.collection(req.params.db).update({_id: oid},{
+            country: req.body.country,
+            code: req.body.code,
+            FHstatus: req.body.FHstatus,
+            gpi: req.body.gpi,
+            info: req.body.info,
+            links: req.body.links,
+            }, (err, returned) => {
+                if (err) {
+                    console.log(err.message);
+                    res.send(err.message);
+                } else {
+                    console.log('updater returned: ' + returned);
+                    res.send('updated item with id ' + req.params.id);
+                }
+        });
+    });
+
     app.delete('/remove/:db/:id', (req, res) => {
         const cloud = database.db('mapdata');
         oid = ObjectId(req.params.id);
