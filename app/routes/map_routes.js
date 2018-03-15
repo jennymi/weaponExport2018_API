@@ -1,3 +1,5 @@
+var ObjectId = require('mongodb').ObjectId;
+
 //add function to exports
 module.exports = function(app, cors, database) {
     //handles get request at localhost:1137/map
@@ -51,5 +53,22 @@ module.exports = function(app, cors, database) {
             }
         })
         console.log('server ran post');
+    });
+
+    app.delete('/remove/:db/:id', (req, res) => {
+        const cloud = database.db('mapdata');
+        oid = ObjectId(req.params.id);
+
+        console.log('tried to delete ' + req.params.id); 
+        
+        cloud.collection(req.params.db).remove({_id: oid}, (err, returned) => {
+            if (err) {
+                console.log(err.message);
+                res.send(err.message);
+            } else {
+                console.log('remover returned: ' + returned);
+                res.send('deleted item with id ' + req.params.id);
+            }
+        });
     });
 }
