@@ -41,7 +41,8 @@ module.exports = function(app, cors, database) {
             FHstatus: req.body.FHstatus,
             gpi: req.body.gpi,
             info: req.body.info,
-            links: req.body.links,           
+            links: req.body.links,
+            title: req.body.title,           
         };
 
         cloud.collection(req.body.collection).insert(country, (err, result) => {
@@ -68,6 +69,7 @@ module.exports = function(app, cors, database) {
             gpi: req.body.gpi,
             info: req.body.info,
             links: req.body.links,
+            title: req.body.title,
             }, (err, returned) => {
                 if (err) {
                     console.log(err.message);
