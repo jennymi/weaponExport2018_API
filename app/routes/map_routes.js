@@ -41,11 +41,13 @@ module.exports = function(app, cors, database) {
             FHstatus: req.body.FHstatus,
             gpi: req.body.gpi,
             info: req.body.info,
-            links: req.body.links,
-            title: req.body.title,           
+            links: JSON.parse(req.body.links),
+            collection: req.body.collection,           
         };
 
-        cloud.collection(req.body.collection).insert(country, (err, result) => {
+        console.log(country);
+
+        cloud.collection(country.collection).insert(country, (err, result) => {
             if (err){
                 res.send({'error': 'An error has occured'});
             }
@@ -53,6 +55,7 @@ module.exports = function(app, cors, database) {
                 res.send(result.ops[0]);
             }
         })
+
         console.log('server ran post');
     });
 
