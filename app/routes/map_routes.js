@@ -65,15 +65,17 @@ module.exports = function(app, cors, database) {
 
         console.log('tried to update ' + req.params.id); 
         
-        cloud.collection(req.params.db).update({_id: oid},{
+        const country = {
             country: req.body.country,
             code: req.body.code,
             FHstatus: req.body.FHstatus,
             gpi: req.body.gpi,
             info: req.body.info,
-            links: req.body.links,
-            title: req.body.title,
-            }, (err, returned) => {
+            links: JSON.parse(req.body.links),
+            collection: req.body.collection,           
+        };
+
+        cloud.collection(req.params.db).update({_id: oid},country,(err, returned) => {
                 if (err) {
                     console.log(err.message);
                     res.send(err.message);

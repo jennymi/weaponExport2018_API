@@ -27,25 +27,27 @@ module.exports = function(app, cors, database) {
         };
     });
 
-    // app.post('/addStats', (req, res) => {
-    //     const cloud = database.db('mapdata');
+    app.post('/addstats', (req, res) => {
+        const cloud = database.db('mapdata');
+        console.log(req.body);
+        const year = {
+            year: req.body.year,
+            code: req.body.code,
+            weapons: req.body.weapons,
+            info: req.body.info,
+            statLinks: JSON.parse(req.body.links),
+        };
 
-    //     const year = {
-    //         year: req.body.year,
-    //         weapons: req.body.weapons,
-    //         info: req.body.info,          
-    //     };
-
-    //     cloud.collection(req.body.collection).insert(year, (err, result) => {
-    //         if (err){
-    //             res.send({'error': 'An error has occured'});
-    //         }
-    //         else {
-    //             res.send(result.ops[0]);
-    //         }
-    //     })
-    //     console.log('server ran post');
-    // });
+        cloud.collection('points').insert(year, (err, result) => {
+            if (err){
+                res.send({'error': 'An error has occured'});
+            }
+            else {
+                res.send(result.ops[0]);
+            }
+        })
+        console.log('server ran post');
+    });
 
 
 }
