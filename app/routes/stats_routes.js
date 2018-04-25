@@ -2,13 +2,13 @@ var ObjectId = require('mongodb').ObjectId;
 
 //add function to exports
 module.exports = function(app, cors, database) {
-    //handles get request at localhost:1137/map
+    //handles get request at localhost:1137/stats
     app.get('/stats', cors() ,(req, res) => {
-        
+        //Retrieves correct database
         const cloud = database.db('mapdata');
         var points = [];
 
-        //Get data from database
+        //Get correct data within mapdata
         cloud.collection('points').find({}).toArray((err, item) => {callBack(err, item)});
         
         function callBack(err, cloudArray) {
@@ -26,26 +26,4 @@ module.exports = function(app, cors, database) {
             }
         };
     });
-
-    // app.post('/addStats', (req, res) => {
-    //     const cloud = database.db('mapdata');
-
-    //     const year = {
-    //         year: req.body.year,
-    //         weapons: req.body.weapons,
-    //         info: req.body.info,          
-    //     };
-
-    //     cloud.collection(req.body.collection).insert(year, (err, result) => {
-    //         if (err){
-    //             res.send({'error': 'An error has occured'});
-    //         }
-    //         else {
-    //             res.send(result.ops[0]);
-    //         }
-    //     })
-    //     console.log('server ran post');
-    // });
-
-
 }

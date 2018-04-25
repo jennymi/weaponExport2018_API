@@ -5,10 +5,11 @@ module.exports = function(app, cors, database) {
     //handles get request at localhost:1137/map
     app.get('/participants', cors() ,(req, res) => {
         
+        //Get data from correct database
         const cloud = database.db('mapdata');
         var logos = [];
 
-        //Get data from database
+        //Get data within mapdata
         cloud.collection('logos').find({}).toArray((err, item) => {callBack(err, item)});
         
         function callBack(err, cloudArray) {
@@ -23,10 +24,8 @@ module.exports = function(app, cors, database) {
                 }
 
                 //send array with data from database
-
                 res.send(logos);
             }
         };
     });
-
 }
