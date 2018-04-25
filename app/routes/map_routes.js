@@ -8,6 +8,7 @@ module.exports = function(app, cors, database) {
         var countries = [];
         var counter = 0;
 
+        //Get correct data within mapdata
         cloud.collection('AF').find({}).toArray((err, item) => {callBack(err, item)});
         cloud.collection('AS').find({}).toArray((err, item) => {callBack(err, item)});
         cloud.collection('OC').find({}).toArray((err, item) => {callBack(err, item)});
@@ -17,8 +18,10 @@ module.exports = function(app, cors, database) {
         
         function callBack(err, cloudArray) {
             if(err) {
+                //if error return error string
                 res.send({'error': 'An error has occured'});
             } else {
+                //push data from database into array
                 for (i = 0; i < cloudArray.length; i++) {
                     countries.push(cloudArray[i]);
                 }
@@ -32,6 +35,7 @@ module.exports = function(app, cors, database) {
         };
     });
 
+    //Create
     app.post('/add', (req, res) => {
         const cloud = database.db('mapdata');
 
@@ -59,6 +63,7 @@ module.exports = function(app, cors, database) {
         console.log('server ran post');
     });
 
+    //Update
     app.put('/edit/:db/:id', (req, res) => {
         const cloud = database.db('mapdata');
         oid = ObjectId(req.params.id);
@@ -84,6 +89,7 @@ module.exports = function(app, cors, database) {
         });
     });
 
+    //Delete
     app.delete('/remove/:db/:id', (req, res) => {
         const cloud = database.db('mapdata');
         oid = ObjectId(req.params.id);
