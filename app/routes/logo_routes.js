@@ -53,4 +53,21 @@ module.exports = function(app, cors, database) {
 
         console.log('server ran post');
     });
+
+    //Delete
+    app.delete('/removepart/:id', (req, res) => {
+        const cloud = database.db('mapdata');
+        oid = ObjectId(req.params.id);
+
+        console.log('tried to delete ' + req.params.id); 
+        
+        cloud.collection('logos').remove({_id: oid}, (err, returned) => {
+            if (err) {
+                console.log(err.message);
+                res.send(err.message);
+            } else {
+                res.send('deleted item with id ' + req.params.id);
+            }
+        });
+    });
 }
