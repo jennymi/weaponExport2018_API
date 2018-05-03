@@ -54,6 +54,32 @@ module.exports = function(app, cors, database) {
         console.log('server ran post');
     });
 
+    //Update
+    app.put('/editpart/:id', (req, res) => {
+        const cloud = database.db('mapdata');
+        oid = ObjectId(req.params.id);
+
+        console.log('tried to update ' + req.params.id); 
+        
+        const logo = {
+            img: req.body.img,
+            participantTitle: req.body.title,
+            info: req.body.info,
+            logoLinks: JSON.parse(req.body.links),           
+        };
+        console.log(logo);
+
+        cloud.collection('logos').update({_id: oid}, logo, (err, returned) => {
+                if (err) {
+                    console.log(err.message);
+                    res.send(err.message);
+                } else {
+                    console.log('updater returned: ' + returned);
+                    res.send('updated item with id ' + req.params.id);
+                }
+        });
+    });
+
     //Delete
     app.delete('/removepart/:id', (req, res) => {
         const cloud = database.db('mapdata');
