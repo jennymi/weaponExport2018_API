@@ -28,4 +28,29 @@ module.exports = function(app, cors, database) {
             }
         };
     });
+
+    //Create
+    app.post('/addpart', (req, res) => {
+        const cloud = database.db('mapdata');
+
+        const logo = {
+            img: req.body.img,
+            participantTitle: req.body.title,
+            info: req.body.info,
+            logoLinks: JSON.parse(req.body.links),           
+        };
+
+        console.log(logo);
+
+        cloud.collection('logos').insert(logo, (err, result) => {
+            if (err){
+                res.send({'error': 'An error has occured'});
+            }
+            else {
+                res.send(result.ops[0]);
+            }
+        })
+
+        console.log('server ran post');
+    });
 }
