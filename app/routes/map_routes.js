@@ -1,4 +1,12 @@
-var ObjectId = require('mongodb').ObjectId;
+// VAPENKARTA API
+// Created by Team Chaos - 2018
+
+// Petter Knutsson - petterknutsson5@gmail.com
+// Viola Turesson - violaturesson@gmail.com
+// Jenny Miderkvist - jenny.miderkvist@gmail.com
+// Joakim Linna - joakimlinna1998@gmail.com
+
+// var ObjectId = require('mongodb').ObjectId;
 
 //add function to exports
 module.exports = function(app, cors, database) {
